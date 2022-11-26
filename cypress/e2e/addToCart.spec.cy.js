@@ -6,7 +6,6 @@ import cartPage from "../pages/cart.page.cy"
 import logAccountFixture from "../fixtures/log-account.json"
 import customerInfoFixture from "../fixtures/customer-information.json"
 
-
 describe("End to end cart shopping scenarios", () =>{
     const{ authorized_username, standard_password} = logAccountFixture
     const{first_name, last_name, zip_code} = customerInfoFixture
@@ -65,8 +64,26 @@ it("Verify E2E purchase of a product through the Shopping cart ", () => {
     .should('be.visible')
 })
 
+it("Remove item from cart shop", () => {
 
-
+    inventoryPage.elements.addBackPackButton()
+    .click()
+    inventoryPage.elements.shoppingCartLink()
+    .click()
+    cartPage.elements.removeCartButton()
+    .should('exist')
+    .and('be.enabled')
+    .click()
+    cartPage.elements.itemRemovedDiv()
+    .should('exist')
+    cartPage.elements.continueShoppingButton()
+    .should('exist')
+    .and('be.enabled')
+    .click()
+    inventoryPage.elements.shoppingCartLink()
+    .should('not.have.have.class','shopping_cart_badge')
+    .and('not.contain.text', '1')
+})
 
 
 })
