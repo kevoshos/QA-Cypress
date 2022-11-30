@@ -12,7 +12,7 @@ describe("End to end cart shopping scenarios", () =>{
 
     beforeEach(()=>{
         cy.visit('/')
-        loginPage.elements.userNameInput() 
+    loginPage.elements.userNameInput() 
     .should('be.visible')
     .type(authorized_username)
     loginPage.elements.passwordInput()
@@ -34,13 +34,13 @@ it("Verify E2E purchase of a product through the Shopping cart ", () => {
     .then(text => itemName = text)
     inventoryPage.elements.addBackPackButton()
     .click()
-    inventoryPage.elements.shoppingCart()
+    inventoryPage.elements.shoppingCartLink()
     .should('contain','1')
     .click()
     // Validate product and continue purchase
     cartPage.elements.cartHeading()
     .should('exist')
-    .should('have.text', 'Your Cart')
+    .and('have.text', 'Your Cart')
     inventoryPage.elements.inventoryItemName()
     .invoke('text')
     .then(itemNameOnCart => expect(itemNameOnCart).to.equal(itemName))
@@ -50,13 +50,13 @@ it("Verify E2E purchase of a product through the Shopping cart ", () => {
     // Add customer information
     customerInfoPage.elements.infoHeader()
     .should('exist')
-    .should('have.text', 'Checkout: Your Information')
+    .and('have.text', 'Checkout: Your Information')
     
    customerInfoPage.fillCustomerInfo(first_name,last_name,zip_code)
     // Overview and complete order
     checkoutOverviewPage.elements.overviewHeader()
     .should('exist')
-    .should('have.text','Checkout: Overview')
+    .and('have.text','Checkout: Overview')
     checkoutOverviewPage.elements.finishButton()
     .should('be.enabled')
     .click()
