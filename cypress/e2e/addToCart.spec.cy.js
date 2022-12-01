@@ -86,4 +86,25 @@ it("Remove item from cart shop", () => {
 })
 
 
+it('Add all items from the inventary to the cart shopp', () => {
+    
+    let addButton = inventoryPage.elements.addToCartButton()
+    addButton.then(($ele) => { 
+    const itemCount = Cypress.$($ele).length;
+
+        cy.get('.inventory_container').each(($button) => {
+            cy.wrap($button).find('button', 'Add to cart').click({multiple:true})
+            inventoryPage.elements.shoppingCartLink()
+            .should('contain',itemCount)
+            .click()
+
+           })  
+        })
+        cartPage.elements.cartHeading()
+        .should('exist')
+        .and('have.text', 'Your Cart')
+        cartPage.elements.checkoutButton()
+        .should('be.enabled')
+        .click()
+    })    
 })
