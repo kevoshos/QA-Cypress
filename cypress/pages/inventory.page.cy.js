@@ -1,6 +1,7 @@
 class inventory{
     elements = {
         productsHeading: () => cy.get('.title').findByText("Products"),
+        addToCartButton: () => cy.get('.inventory_container').find('button', 'Add to cart'),
         addBackPackButton: () => cy.get('.inventory_container').contains("[data-test*='sauce-labs-backpack']","Add to cart"),
         inventoryItemName: () => cy.get('.inventory_item_name').eq(0),
         addBoltTShirtButton:() => cy.get('.inventory_container').contains("[data-test*='bolt-t-shirt']","Add to cart"),
